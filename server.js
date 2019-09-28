@@ -6,9 +6,15 @@ const app = express();
 // Connect Database
 connectDB();
 
+// Init Middleware
+app.use(express.json({ extended: false }));
+
 app.get("/", (req, res) => {
     res.send(`Socialize API v1`);
 });
+
+// Define Routes
+app.use("/api/users", require("./routes/api/users"));
 
 const PORT = process.env.PORT || 5000;
 
