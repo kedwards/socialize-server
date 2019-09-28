@@ -156,4 +156,91 @@ router.delete("/", auth, async (req, res) => {
     }
 });
 
+// @route    PUT api/profile/experience
+// @desc     Add profile experience
+// @access   Private
+router.put(
+    "/experience",
+    [
+        auth,
+        [
+            check("title", "Title is required")
+                .not()
+                .isEmpty(),
+            check("company", "Company is required")
+                .not()
+                .isEmpty(),
+            check("from", "From date is required")
+                .not()
+                .isEmpty(),
+        ],
+    ],
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        const {
+            title,
+            company,
+            location,
+            from,
+            to,
+            current,
+            description,
+        } = req.body;
+
+        const newExp = {
+            title,
+            company,
+            location,
+            from,
+            to,
+            current,
+            description,
+        };
+
+        try {
+            const profile = await Profile.findOne({ user: req.user.id });
+
+            profile.experience.unshift(newExp);
+
+            await profile.save();
+
+            res.json(profile);
+        } catch (err) {
+            console.error(err.message);
+            res.status(500).send("Server Error");
+        }
+    },
+);
+
+// @route    DELETE api/profile/experience/:exp_id
+// @desc     Delete experience from profile
+// @access   Private
+router.delete("/experience/:exp_id", auth, async (req, res) => {
+    try {
+        const foundProfile = await Profile.findOne({ user: req.user.id });
+        const expIds = foundProfile.experience.map(exp => exp._id.toString());
+        // if i dont add .toString() it returns this weird mongoose coreArray and the ids are somehow objects and it still deletes anyway even if you put /experience/5
+        const removeIndex = expIds.indexOf(req.params.exp_id);
+        if (removeIndex === -1) {
+            return res.status(500).json({ msg: "Server error" });
+        } else {
+            // theses console logs helped me figure it out
+            console.log("expIds", expIds);
+            console.log("typeof expIds", typeof expIds);
+            console.log("req.params", req.params);
+            console.log("removed", expIds.indexOf(req.params.exp_id));
+            foundProfile.experience.splice(removeIndex, 1);
+            await foundProfile.save();
+            return res.status(200).json(foundProfile);
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ msg: "Server error" });
+    }
+});
+
 module.exports = router;
