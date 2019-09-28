@@ -1,0 +1,27 @@
+{
+    "name": "socialize",
+    "version": "1.0.0",
+    "description": "connect social app",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server",
+        "server": "nodemon server"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/kedwards/socialize.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/kedwards/socialize/issues"
+    },
+    "homepage": "https://github.com/kedwards/socialize#readme",
+    "devDependencies": {
+        "nodemon": "^1.19.2"
+    },
+    "dependencies": {
+        "express": "^4.17.1"
+    }
+}
