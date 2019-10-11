@@ -1,0 +1,12 @@
+{
+    "mongoURI": "mongodb+srv://met:9499@cluster0-ohgz3.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "LivITySocialize",
+    "githubClientId": "Iv1.5f8ed3f623f5c0bd",
+    "githubSecret": "bc0294b1174944357397e7a642f4b257bab92749",
+
+    "cloud_name": "kedwards",
+    "api_key": "223587454594195",
+    "api_secret": "FcCAGYO535a7HAhNVYxwzC8B1KA",
+    "client_origin": "",
+    "env_variable": "cloudinary://223587454594195:FcCAGYO535a7HAhNVYxwzC8B1KA@kedwards/"
+}
