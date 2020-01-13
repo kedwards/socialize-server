@@ -14,9 +14,17 @@ app.use(cors());
 app.use(express.json({ extended: false }));
 app.use(formData.parse());
 
-// app.get("/", (req, res) => {
-//     res.send(`Socialize API v1`);
-// });
+// serve the react app files
+// app.use(express.static(`${__dirname}/build`));
+
+app.get("/", (req, res) => {
+    res.send(`Socialize API v1`);
+});
+
+// app.get('/', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'build', 'index.html'))
+// })
+  
 
 // Define Routes
 app.use("/api/users", require("./routes/api/users"));
