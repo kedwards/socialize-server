@@ -11,7 +11,9 @@ connectDB();
 
 // Init Middleware
 app.use(cors());
-app.use(express.json({ extended: false }));
+app.use(express.json({
+    extended: false
+}));
 app.use(formData.parse());
 
 // serve the react app files
@@ -24,7 +26,7 @@ app.get("/", (req, res) => {
 // app.get('/', (req, res) => {
 //     res.sendFile(path.join(__dirname, 'build', 'index.html'))
 // })
-  
+
 
 // Define Routes
 app.use("/api/users", require("./routes/api/users"));
@@ -35,13 +37,13 @@ app.use("/api/uploads", require("./routes/api/uploads"));
 
 // Serve static assets in prod
 if (process.env.NODE_ENV === "production") {
-    app.use(express.static("../socialize-client/build"));
+    app.use(express.static("../client/build"));
 
     app.get("*", (req, res) => {
         res.sendFile(
             path.resolve(
                 __dirname,
-                "../socialize-client",
+                "../client",
                 "build",
                 "indexedDB.html",
             ),
