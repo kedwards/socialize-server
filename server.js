@@ -11,22 +11,16 @@ connectDB();
 
 // Init Middleware
 app.use(cors());
-app.use(express.json({
-    extended: false
-}));
+app.use(
+  express.json({
+    extended: false,
+  })
+);
 app.use(formData.parse());
-
-// serve the react app files
-// app.use(express.static(`${__dirname}/build`));
-
-app.get("/", (req, res) => {
-    res.send(`Socialize API v1`);
-});
 
 // app.get('/', (req, res) => {
 //     res.sendFile(path.join(__dirname, 'build', 'index.html'))
 // })
-
 
 // Define Routes
 app.use("/api/users", require("./routes/api/users"));
@@ -37,17 +31,14 @@ app.use("/api/uploads", require("./routes/api/uploads"));
 
 // Serve static assets in prod
 if (process.env.NODE_ENV === "production") {
-    app.use(express.static("../client/build"));
+  app.use(express.static("../client/build"));
 
-    app.get("*", (req, res) => {
-        res.sendFile(
-            path.resolve(
-                __dirname,
-                "../client",
-                "build",
-                "indexedDB.html",
-            ),
-        );
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
+  });
+} ese {
+    app.get("/", (req, res) => {
+        res.send(`Socialize API v1`);
     });
 }
 
